@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine Fetch</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-mono">
+    <h1 class="text-center">Alpine Fetch Data </h1>
+    <div x-data="{ show: false }">
+        <div class="flex items-center justify-center">
+            <button class="px-6 py-2 bg-sky-300 text-white font-semibold" @click="show = !show">Fetch
+                Data</button>
+        </div>
+
+        <div x-show="show = show">
+            <!--  -->
+            <table class="border-collapse border border-red-400 mx-auto">
+                <thead>
+                    <tr>
+                        <th class="py-3 px-4 border-2 border-red-400">User ID</th>
+                        <th class="py-3 px-4 border-2 border-red-400">Title</th>
+                        <th class="py-3 px-4 border-2 border-red-400">Content</th>
+                    </tr>
+                </thead>
+
+                <tbody x-data="{ posts: [] }"
+                    x-init="posts = await (await fetch('https://jsonplaceholder.typicode.com/posts')).json()">
+                    <template x-for="post in posts">
+                        <tr>
+                            <td class="py-3 px-4 border-2 border-red-400" x-text="post.id"></td>
+                            <td class="py-3 px-4 border-2 border-red-400" x-text="post.title"></td>
+                            <td class="py-3 px-4 border-2 border-red-400" x-text="post.body"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+            <!--  -->
+        </div>
+    </div>
+
+</body>
+
+</html>
